@@ -1,4 +1,6 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.6.12;
 
 import "./interfaces/IPancakeFactory.sol";
 import "./PancakePair.sol";
@@ -6,12 +8,12 @@ import "./PancakePair.sol";
 contract PancakeFactory is IPancakeFactory {
   bytes32 public constant INIT_CODE_PAIR_HASH = keccak256(abi.encodePacked(type(PancakePair).creationCode));
 
-  address public feeTo;
-  address public feeToSetter;
+  address public override feeTo;
+  address public override feeToSetter;
 
-  mapping(address => mapping(address => address)) public getPair;
+  mapping(address => mapping(address => address)) public override getPair;
 
-  address[] public allPairs;
+  address[] public override allPairs;
 
   event PairCreated(address indexed token0, address indexed token1, address pair, uint256);
 
@@ -19,11 +21,11 @@ contract PancakeFactory is IPancakeFactory {
     feeToSetter = _feeToSetter;
   }
 
-  function allPairsLength() external view returns (uint256) {
+  function allPairsLength() external view override returns (uint256) {
     return allPairs.length;
   }
 
-  function createPair(address tokenA, address tokenB) external returns (address pair) {
+  function createPair(address tokenA, address tokenB) external override returns (address pair) {
     require(tokenA != tokenB, "Pancake: IDENTICAL_ADDRESSES");
 
     (address token0, address token1) = tokenA < tokenB ? (tokenA, tokenB) : (tokenB, tokenA);
@@ -47,13 +49,13 @@ contract PancakeFactory is IPancakeFactory {
     emit PairCreated(token0, token1, pair, allPairs.length);
   }
 
-  function setFeeTo(address _feeTo) external {
+  function setFeeTo(address _feeTo) external override {
     require(msg.sender == feeToSetter, "Pancake: FORBIDDEN");
 
     feeTo = _feeTo;
   }
 
-  function setFeeToSetter(address _feeToSetter) external {
+  function setFeeToSetter(address _feeToSetter) external override {
     require(msg.sender == feeToSetter, "Pancake: FORBIDDEN");
 
     feeToSetter = _feeToSetter;

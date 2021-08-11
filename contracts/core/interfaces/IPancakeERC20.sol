@@ -1,8 +1,10 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
 
-import "@gsx/bsc-genesis/contracts/token/BEP20/IBEP20.sol";
+pragma solidity 0.6.12;
 
-interface IPancakeERC20 {
+import "../../BEP20/IBEP20.sol";
+
+interface IPancakeERC20 is IBEP20 {
   /* solhint-disable func-name-mixedcase */
 
   function DOMAIN_SEPARATOR() external view returns (bytes32);

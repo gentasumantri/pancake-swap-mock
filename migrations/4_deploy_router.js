@@ -3,10 +3,9 @@
 require('dotenv').config();
 
 const Router = artifacts.require('PancakeRouter02');
-const Weth = artifacts.require('WETH9');
-
-const FactoryAddress = process.env.FACTORY_ADDRESS;
+const Factory = artifacts.require('PancakeFactory');
+const Wbnb = artifacts.require('Wbnb');
 
 module.exports = async function (deployer) {
-  await deployer.deploy(Router, FactoryAddress, Weth.address, { gas: 6721975 });
+  await deployer.deploy(Router, Factory.address, Wbnb.address, { gas: 6721975 });
 };

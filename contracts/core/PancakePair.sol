@@ -1,6 +1,8 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
 
-import "@gsx/bsc-genesis/contracts/token/BEP20/IBEP20.sol";
+pragma solidity 0.6.12;
+
+import "../BEP20/IBEP20.sol";
 import "../libraries/Math.sol";
 import "../libraries/UQ112x112.sol";
 import "./interfaces/IPancakePair.sol";
@@ -12,14 +14,14 @@ contract PancakePair is IPancakePair, PancakeERC20 {
   using SafeMath for uint256;
   using UQ112x112 for uint224;
 
-  uint256 public constant MINIMUM_LIQUIDITY = 10**3;
+  uint256 public constant override MINIMUM_LIQUIDITY = 10**3;
 
   // solhint-disable-next-line private-vars-leading-underscore
   bytes4 private constant SELECTOR = bytes4(keccak256(bytes("transfer(address,uint256)")));
 
-  address public factory;
-  address public token0;
-  address public token1;
+  address public override factory;
+  address public override token0;
+  address public override token1;
 
   /* solhint-disable private-vars-leading-underscore */
 
@@ -30,9 +32,9 @@ contract PancakePair is IPancakePair, PancakeERC20 {
   /* solhint-enable private-vars-leading-underscore */
 
   uint256 private _unlocked = 1;
-  uint256 public price0CumulativeLast;
-  uint256 public price1CumulativeLast;
-  uint256 public kLast; // reserve0 * reserve1, as of immediately after the most recent liquidity event
+  uint256 public override price0CumulativeLast;
+  uint256 public override price1CumulativeLast;
+  uint256 public override kLast; // reserve0 * reserve1, as of immediately after the most recent liquidity event
 
   modifier lock() {
     require(_unlocked == 1, "Pancake: LOCKED");
@@ -45,6 +47,7 @@ contract PancakePair is IPancakePair, PancakeERC20 {
   function getReserves()
     public
     view
+    override
     returns (
       uint112 _reserve0,
       uint112 _reserve1,
@@ -83,7 +86,7 @@ contract PancakePair is IPancakePair, PancakeERC20 {
   }
 
   // called once by the factory at time of deployment
-  function initialize(address _token0, address _token1) external {
+  function initialize(address _token0, address _token1) external override {
     require(msg.sender == factory, "Pancake: FORBIDDEN"); // sufficient check
 
     token0 = _token0;
@@ -140,7 +143,7 @@ contract PancakePair is IPancakePair, PancakeERC20 {
   }
 
   // this low-level function should be called from a contract which performs important safety checks
-  function mint(address to) external lock returns (uint256 liquidity) {
+  function mint(address to) external override lock returns (uint256 liquidity) {
     (uint112 _reserve0, uint112 _reserve1, ) = getReserves(); // gas savings
     uint256 balance0 = IBEP20(token0).balanceOf(address(this));
     uint256 balance1 = IBEP20(token1).balanceOf(address(this));
@@ -170,7 +173,7 @@ contract PancakePair is IPancakePair, PancakeERC20 {
   }
 
   // this low-level function should be called from a contract which performs important safety checks
-  function burn(address to) external lock returns (uint256 amount0, uint256 amount1) {
+  function burn(address to) external override lock returns (uint256 amount0, uint256 amount1) {
     (uint112 _reserve0, uint112 _reserve1, ) = getReserves(); // gas savings
     address _token0 = token0; // gas savings
     address _token1 = token1; // gas savings
@@ -205,7 +208,7 @@ contract PancakePair is IPancakePair, PancakeERC20 {
     uint256 amount1Out,
     address to,
     bytes calldata data
-  ) external lock {
+  ) external override lock {
     require(amount0Out > 0 || amount1Out > 0, "Pancake: INSUFFICIENT_OUTPUT_AMOUNT");
 
     (uint112 _reserve0, uint112 _reserve1, ) = getReserves(); // gas savings
@@ -249,7 +252,7 @@ contract PancakePair is IPancakePair, PancakeERC20 {
   }
 
   // force balances to match reserves
-  function skim(address to) external lock {
+  function skim(address to) external override lock {
     address _token0 = token0; // gas savings
     address _token1 = token1; // gas savings
 
@@ -258,7 +261,7 @@ contract PancakePair is IPancakePair, PancakeERC20 {
   }
 
   // force reserves to match balances
-  function sync() external lock {
+  function sync() external override lock {
     _update(IBEP20(token0).balanceOf(address(this)), IBEP20(token1).balanceOf(address(this)), reserve0, reserve1);
   }
 }

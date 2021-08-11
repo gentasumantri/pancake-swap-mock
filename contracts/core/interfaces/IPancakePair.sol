@@ -1,8 +1,10 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.6.12;
 
 import "./IPancakeERC20.sol";
 
-interface IPancakePair {
+interface IPancakePair is IPancakeERC20 {
   event Mint(address indexed sender, uint256 amount0, uint256 amount1);
   event Burn(address indexed sender, uint256 amount0, uint256 amount1, address indexed to);
   event Swap(
