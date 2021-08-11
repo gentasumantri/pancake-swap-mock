@@ -1,22 +1,28 @@
 pragma solidity ^0.5.0;
 
+import "@openzeppelin/contracts/math/SafeMath.sol";
 import "./interfaces/IPancakeERC20.sol";
-import "./libraries/SafeMath.sol";
 
 contract PancakeERC20 is IPancakeERC20 {
   using SafeMath for uint256;
 
+  /* solhint-disable const-name-snakecase */
   string public constant name = "Pancake LPs";
   string public constant symbol = "Cake-LP";
+
   uint8 public constant decimals = 18;
+  /* solhint-enableconst-name-snakecase */
+
   uint256 public totalSupply;
+
   mapping(address => uint256) public balanceOf;
+  mapping(address => uint256) public nonces;
   mapping(address => mapping(address => uint256)) public allowance;
 
-  bytes32 public DOMAIN_SEPARATOR;
-  // keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
   bytes32 public constant PERMIT_TYPEHASH = 0x6e71edae12b1b97f4d1f60370fef10105fa2faae0126114a169c64845d6126c9;
-  mapping(address => uint256) public nonces;
+
+  // solhint-disable-next-line var-name-mixedcase
+  bytes32 public DOMAIN_SEPARATOR;
 
   event Approval(address indexed owner, address indexed spender, uint256 value);
   event Transfer(address indexed from, address indexed to, uint256 value);
@@ -40,12 +46,14 @@ contract PancakeERC20 is IPancakeERC20 {
   function _mint(address to, uint256 value) internal {
     totalSupply = totalSupply.add(value);
     balanceOf[to] = balanceOf[to].add(value);
+
     emit Transfer(address(0), to, value);
   }
 
   function _burn(address from, uint256 value) internal {
     balanceOf[from] = balanceOf[from].sub(value);
     totalSupply = totalSupply.sub(value);
+
     emit Transfer(from, address(0), value);
   }
 
@@ -55,6 +63,7 @@ contract PancakeERC20 is IPancakeERC20 {
     uint256 value
   ) private {
     allowance[owner][spender] = value;
+
     emit Approval(owner, spender, value);
   }
 
@@ -65,16 +74,19 @@ contract PancakeERC20 is IPancakeERC20 {
   ) private {
     balanceOf[from] = balanceOf[from].sub(value);
     balanceOf[to] = balanceOf[to].add(value);
+
     emit Transfer(from, to, value);
   }
 
   function approve(address spender, uint256 value) external returns (bool) {
     _approve(msg.sender, spender, value);
+
     return true;
   }
 
   function transfer(address to, uint256 value) external returns (bool) {
     _transfer(msg.sender, to, value);
+
     return true;
   }
 
@@ -86,7 +98,9 @@ contract PancakeERC20 is IPancakeERC20 {
     if (allowance[from][msg.sender] != uint256(-1)) {
       allowance[from][msg.sender] = allowance[from][msg.sender].sub(value);
     }
+
     _transfer(from, to, value);
+
     return true;
   }
 
@@ -100,6 +114,7 @@ contract PancakeERC20 is IPancakeERC20 {
     bytes32 s
   ) external {
     require(deadline >= block.timestamp, "Pancake: EXPIRED");
+
     bytes32 digest = keccak256(
       abi.encodePacked(
         "\x19\x01",
@@ -108,7 +123,9 @@ contract PancakeERC20 is IPancakeERC20 {
       )
     );
     address recoveredAddress = ecrecover(digest, v, r, s);
+
     require(recoveredAddress != address(0) && recoveredAddress == owner, "Pancake: INVALID_SIGNATURE");
+
     _approve(owner, spender, value);
   }
 }

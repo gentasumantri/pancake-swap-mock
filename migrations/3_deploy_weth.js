@@ -1,4 +1,4 @@
-// migrations/2_deploy_factory.js
+// migrations/3_deploy_weth.js
 
 require('dotenv').config();
 
