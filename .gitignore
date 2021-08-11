@@ -1,0 +1,27 @@
+# npm
+node_modules
+
+# truffle
+build
+
+# hardhat
+artifacts
+cache
+
+# mocha
+mochawesome-report
+
+# logs
+logs
+
+# environment variables
+.env
+
+# code coverage
+coverage
+coverage.json
+
+# etc
+unused
+
+
