@@ -8,8 +8,6 @@
     "compile": "truffle compile",
     "deploy": "truffle migrate",
     "deploy:reset": "truffle migrate --reset",
-    "deploy:live": "truffle migrate --network live | tee logs/migrations_live.log",
-    "deploy:live:reset": "truffle migrate --network live --reset | tee logs/migrations_live.log",
     "deploy:testnet": "truffle migrate --network testnet | tee logs/migrations_testnet.log",
     "deploy:testnet:reset": "truffle migrate --network testnet --reset | tee logs/migrations_testnet.log",
     "lint": "yarn lint:js && yarn lint:sol",
