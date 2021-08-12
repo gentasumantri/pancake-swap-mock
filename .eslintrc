@@ -1,5 +1,5 @@
 {
-  "extends": ["standard", "plugin:promise/recommended", "prettier"],
+  "extends": ["standard", "plugin:promise/recommended"],
   "plugins": ["mocha-no-only", "promise"],
   "env": {
     "browser": true,
