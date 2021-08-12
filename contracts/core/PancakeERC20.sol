@@ -3,7 +3,7 @@
 pragma solidity 0.6.12;
 
 import "@openzeppelin/contracts/math/SafeMath.sol";
-import "./interfaces/IPancakeERC20.sol";
+import "../interfaces/IPancakeERC20.sol";
 
 contract PancakeERC20 is IPancakeERC20 {
   using SafeMath for uint256;

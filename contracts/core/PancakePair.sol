@@ -4,10 +4,10 @@ pragma solidity 0.6.12;
 
 import "@gsx/bsc-genesis/contracts/utils/math/UQ112x112.sol";
 
+import "../interfaces/IPancakePair.sol";
+import "../interfaces/IPancakeFactory.sol";
+import "../interfaces/IPancakeCallee.sol";
 import "../libraries/Math.sol";
-import "./interfaces/IPancakePair.sol";
-import "./interfaces/IPancakeFactory.sol";
-import "./interfaces/IPancakeCallee.sol";
 import "./PancakeERC20.sol";
 
 contract PancakePair is IPancakePair, PancakeERC20 {

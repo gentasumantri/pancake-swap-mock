@@ -5,8 +5,8 @@ pragma solidity 0.6.12;
 import "@gsx/bsc-genesis/contracts/IWBNB.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@uniswap/lib/contracts/libraries/TransferHelper.sol";
-import "./interfaces/IPancakeRouter02.sol";
-import "../core/interfaces/IPancakeFactory.sol";
+import "../interfaces/IPancakeRouter02.sol";
+import "../interfaces/IPancakeFactory.sol";
 import "../libraries/PancakeLibrary.sol";
 
 contract PancakeRouter02 is IPancakeRouter02 {

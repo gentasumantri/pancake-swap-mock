@@ -2,7 +2,7 @@
 
 pragma solidity 0.6.12;
 
-import "./interfaces/IPancakeFactory.sol";
+import "../interfaces/IPancakeFactory.sol";
 import "./PancakePair.sol";
 
 contract PancakeFactory is IPancakeFactory {
