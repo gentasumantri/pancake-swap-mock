@@ -4,8 +4,7 @@ pragma solidity 0.6.12;
 
 import "./IPancakeRouter01.sol";
 
-// interface IPancakeRouter02 is IPancakeRouter01 {
-interface IPancakeRouter02 {
+interface IPancakeRouter02 is IPancakeRouter01 {
   function removeLiquidityETHSupportingFeeOnTransferTokens(
     address token,
     uint256 liquidity,

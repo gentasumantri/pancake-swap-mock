@@ -2,9 +2,9 @@
 
 pragma solidity 0.6.12;
 
-import "../BEP20/IBEP20.sol";
+import "@gsx/bsc-genesis/contracts/utils/math/UQ112x112.sol";
+
 import "../libraries/Math.sol";
-import "../libraries/UQ112x112.sol";
 import "./interfaces/IPancakePair.sol";
 import "./interfaces/IPancakeFactory.sol";
 import "./interfaces/IPancakeCallee.sol";

@@ -2,13 +2,11 @@
 
 pragma solidity 0.6.12;
 
+import "@gsx/bsc-genesis/contracts/IWBNB.sol";
 import "@uniswap/lib/contracts/libraries/TransferHelper.sol";
-
-import "../IWBNB.sol";
-import "../BEP20/IBEP20.sol";
+import "./interfaces/IPancakeRouter01.sol";
 import "../core/interfaces/IPancakeFactory.sol";
 import "../libraries/PancakeLibrary.sol";
-import "./interfaces/IPancakeRouter01.sol";
 
 contract PancakeRouter01 is IPancakeRouter01 {
   address public immutable override factory;

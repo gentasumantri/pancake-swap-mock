@@ -2,22 +2,20 @@
 
 pragma solidity 0.6.12;
 
+import "@gsx/bsc-genesis/contracts/IWBNB.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@uniswap/lib/contracts/libraries/TransferHelper.sol";
-
-import "../IWBNB.sol";
-import "../BEP20/IBEP20.sol";
+import "./interfaces/IPancakeRouter02.sol";
 import "../core/interfaces/IPancakeFactory.sol";
 import "../libraries/PancakeLibrary.sol";
-import "./interfaces/IPancakeRouter02.sol";
 
 contract PancakeRouter02 is IPancakeRouter02 {
   using SafeMath for uint256;
 
-  address public immutable factory;
+  address public immutable override factory;
 
   // solhint-disable-next-line var-name-mixedcase
-  address public immutable WETH;
+  address public immutable override WETH;
 
   modifier ensure(uint256 deadline) {
     require(deadline >= block.timestamp, "PancakeRouter: EXPIRED");
@@ -83,6 +81,7 @@ contract PancakeRouter02 is IPancakeRouter02 {
   )
     external
     virtual
+    override
     ensure(deadline)
     returns (
       uint256 amountA,
@@ -111,6 +110,7 @@ contract PancakeRouter02 is IPancakeRouter02 {
     external
     payable
     virtual
+    override
     ensure(deadline)
     returns (
       uint256 amountToken,
@@ -142,7 +142,7 @@ contract PancakeRouter02 is IPancakeRouter02 {
     uint256 amountBMin,
     address to,
     uint256 deadline
-  ) public virtual ensure(deadline) returns (uint256 amountA, uint256 amountB) {
+  ) public virtual override ensure(deadline) returns (uint256 amountA, uint256 amountB) {
     address pair = PancakeLibrary.pairFor(factory, tokenA, tokenB);
 
     IPancakePair(pair).transferFrom(msg.sender, pair, liquidity); // send liquidity to pair
@@ -162,7 +162,7 @@ contract PancakeRouter02 is IPancakeRouter02 {
     uint256 amountETHMin,
     address to,
     uint256 deadline
-  ) public virtual ensure(deadline) returns (uint256 amountToken, uint256 amountETH) {
+  ) public virtual override ensure(deadline) returns (uint256 amountToken, uint256 amountETH) {
     (amountToken, amountETH) = removeLiquidity(
       token,
       WETH,
@@ -191,7 +191,7 @@ contract PancakeRouter02 is IPancakeRouter02 {
     uint8 v,
     bytes32 r,
     bytes32 s
-  ) external virtual returns (uint256 amountA, uint256 amountB) {
+  ) external virtual override returns (uint256 amountA, uint256 amountB) {
     address pair = PancakeLibrary.pairFor(factory, tokenA, tokenB);
     uint256 value = approveMax ? uint256(-1) : liquidity;
 
@@ -211,7 +211,7 @@ contract PancakeRouter02 is IPancakeRouter02 {
     uint8 v,
     bytes32 r,
     bytes32 s
-  ) external virtual returns (uint256 amountToken, uint256 amountETH) {
+  ) external virtual override returns (uint256 amountToken, uint256 amountETH) {
     address pair = PancakeLibrary.pairFor(factory, token, WETH);
     uint256 value = approveMax ? uint256(-1) : liquidity;
 
@@ -289,7 +289,7 @@ contract PancakeRouter02 is IPancakeRouter02 {
     address[] calldata path,
     address to,
     uint256 deadline
-  ) external virtual ensure(deadline) returns (uint256[] memory amounts) {
+  ) external virtual override ensure(deadline) returns (uint256[] memory amounts) {
     amounts = PancakeLibrary.getAmountsOut(factory, amountIn, path);
 
     require(amounts[amounts.length - 1] >= amountOutMin, "PancakeRouter: INSUFFICIENT_OUTPUT_AMOUNT");
@@ -305,7 +305,7 @@ contract PancakeRouter02 is IPancakeRouter02 {
     address[] calldata path,
     address to,
     uint256 deadline
-  ) external virtual ensure(deadline) returns (uint256[] memory amounts) {
+  ) external virtual override ensure(deadline) returns (uint256[] memory amounts) {
     amounts = PancakeLibrary.getAmountsIn(factory, amountOut, path);
 
     require(amounts[0] <= amountInMax, "PancakeRouter: EXCESSIVE_INPUT_AMOUNT");
@@ -320,7 +320,7 @@ contract PancakeRouter02 is IPancakeRouter02 {
     address[] calldata path,
     address to,
     uint256 deadline
-  ) external payable virtual ensure(deadline) returns (uint256[] memory amounts) {
+  ) external payable virtual override ensure(deadline) returns (uint256[] memory amounts) {
     require(path[0] == WETH, "PancakeRouter: INVALID_PATH");
 
     amounts = PancakeLibrary.getAmountsOut(factory, msg.value, path);
@@ -340,7 +340,7 @@ contract PancakeRouter02 is IPancakeRouter02 {
     address[] calldata path,
     address to,
     uint256 deadline
-  ) external virtual ensure(deadline) returns (uint256[] memory amounts) {
+  ) external virtual override ensure(deadline) returns (uint256[] memory amounts) {
     require(path[path.length - 1] == WETH, "PancakeRouter: INVALID_PATH");
 
     amounts = PancakeLibrary.getAmountsIn(factory, amountOut, path);
@@ -362,7 +362,7 @@ contract PancakeRouter02 is IPancakeRouter02 {
     address[] calldata path,
     address to,
     uint256 deadline
-  ) external virtual ensure(deadline) returns (uint256[] memory amounts) {
+  ) external virtual override ensure(deadline) returns (uint256[] memory amounts) {
     require(path[path.length - 1] == WETH, "PancakeRouter: INVALID_PATH");
 
     amounts = PancakeLibrary.getAmountsOut(factory, amountIn, path);
@@ -383,7 +383,7 @@ contract PancakeRouter02 is IPancakeRouter02 {
     address[] calldata path,
     address to,
     uint256 deadline
-  ) external payable virtual ensure(deadline) returns (uint256[] memory amounts) {
+  ) external payable virtual override ensure(deadline) returns (uint256[] memory amounts) {
     require(path[0] == WETH, "PancakeRouter: INVALID_PATH");
 
     amounts = PancakeLibrary.getAmountsIn(factory, amountOut, path);
@@ -499,7 +499,7 @@ contract PancakeRouter02 is IPancakeRouter02 {
     uint256 amountA,
     uint256 reserveA,
     uint256 reserveB
-  ) public pure virtual returns (uint256 amountB) {
+  ) public pure virtual override returns (uint256 amountB) {
     return PancakeLibrary.quote(amountA, reserveA, reserveB);
   }
 
@@ -507,7 +507,7 @@ contract PancakeRouter02 is IPancakeRouter02 {
     uint256 amountIn,
     uint256 reserveIn,
     uint256 reserveOut
-  ) public pure virtual returns (uint256 amountOut) {
+  ) public pure virtual override returns (uint256 amountOut) {
     return PancakeLibrary.getAmountOut(amountIn, reserveIn, reserveOut);
   }
 
@@ -515,7 +515,7 @@ contract PancakeRouter02 is IPancakeRouter02 {
     uint256 amountOut,
     uint256 reserveIn,
     uint256 reserveOut
-  ) public pure virtual returns (uint256 amountIn) {
+  ) public pure virtual override returns (uint256 amountIn) {
     return PancakeLibrary.getAmountIn(amountOut, reserveIn, reserveOut);
   }
 
@@ -523,6 +523,7 @@ contract PancakeRouter02 is IPancakeRouter02 {
     public
     view
     virtual
+    override
     returns (uint256[] memory amounts)
   {
     return PancakeLibrary.getAmountsOut(factory, amountIn, path);
@@ -532,6 +533,7 @@ contract PancakeRouter02 is IPancakeRouter02 {
     public
     view
     virtual
+    override
     returns (uint256[] memory amounts)
   {
     return PancakeLibrary.getAmountsIn(factory, amountOut, path);
