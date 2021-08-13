@@ -7,17 +7,14 @@
   "scripts": {
     "compile": "truffle compile",
     "deploy": "truffle migrate",
-    "deploy:reset": "truffle migrate --reset",
-    "deploy:testnet": "truffle migrate --network testnet | tee logs/migrations_testnet.log",
-    "deploy:testnet:reset": "truffle migrate --network testnet --reset | tee logs/migrations_testnet.log",
     "lint": "yarn lint:js && yarn lint:sol",
     "lint:fix": "yarn lint:js:fix && yarn lint:sol:fix",
     "lint:sol": "solhint contracts/**/*.sol",
     "lint:sol:fix": "solhint contracts/**/*.sol --fix",
     "lint:js": "eslint . --ignore-path .gitignore",
     "lint:js:fix": "eslint . --ignore-path .gitignore --fix",
-    "prettier": "yarn prettier:js && yarn prettier:sol",
-    "prettier:fix": "yarn prettier:js:fix && yarn prettier:sol:fix",
+    "prettier": "npm run prettier:js && npm run prettier:sol",
+    "prettier:fix": "npm run prettier:js:fix && npm run prettier:sol:fix",
     "prettier:js": "prettier --check **.js --ignore-path .gitignore",
     "prettier:js:fix": "prettier --check **.js --ignore-path .gitignore --write",
     "prettier:sol": "prettier --check contracts/**/*.sol",
@@ -29,7 +26,6 @@
     "@openzeppelin/contracts": "3.4.0",
     "@truffle/hdwallet-provider": "^1.4.1",
     "@uniswap/lib": "^4.0.1-alpha",
-    "dotenv": "^10.0.0",
     "eslint": "^7.30.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.23.4",
@@ -39,6 +35,6 @@
     "prettier": "^2.3.2",
     "prettier-plugin-solidity": "^1.0.0-beta.15",
     "solhint": "^3.3.6",
-    "truffle": "^5.4.0"
+    "truffle": "5.4.6"
   }
 }
