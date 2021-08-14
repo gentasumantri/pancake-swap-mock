@@ -1,9 +1,9 @@
 {
-  "name": "@gsx/pancake-swap-mock",
+  "name": "@gsx/pancakeswap-mock",
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gentasumantri/pancake-swap-mock.git"
+    "url": "https://github.com/gentasumantri/pancakeswap-mock.git"
   },
   "author": "Genta Sumantri <gentaaaa@outlook.co.id>",
   "license": "MIT",
