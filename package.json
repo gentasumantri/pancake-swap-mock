@@ -26,7 +26,6 @@
   },
   "devDependencies": {
     "@gsx/bsc-genesis": "https://github.com/gentasumantri/bsc-genesis.git",
-    "@openzeppelin/contracts": "3.4.0",
     "@truffle/hdwallet-provider": "^1.4.1",
     "@uniswap/lib": "^4.0.1-alpha",
     "eslint": "^7.30.0",

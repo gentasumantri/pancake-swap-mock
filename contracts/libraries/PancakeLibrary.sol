@@ -2,7 +2,7 @@
 
 pragma solidity 0.6.12;
 
-import "@openzeppelin/contracts/math/SafeMath.sol";
+import "@gsx/bsc-genesis/contracts/utils/math/SafeMath.sol";
 import "../interfaces/IPancakePair.sol";
 
 library PancakeLibrary {

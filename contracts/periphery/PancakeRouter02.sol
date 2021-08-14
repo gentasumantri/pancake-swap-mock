@@ -3,7 +3,7 @@
 pragma solidity 0.6.12;
 
 import "@gsx/bsc-genesis/contracts/IWBNB.sol";
-import "@openzeppelin/contracts/math/SafeMath.sol";
+import "@gsx/bsc-genesis/contracts/utils/math/SafeMath.sol";
 import "@uniswap/lib/contracts/libraries/TransferHelper.sol";
 import "../interfaces/IPancakeRouter02.sol";
 import "../interfaces/IPancakeFactory.sol";
