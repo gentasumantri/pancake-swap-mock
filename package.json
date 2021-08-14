@@ -1,7 +1,10 @@
 {
   "name": "@gsx/pancake-swap-mock",
   "version": "1.0.0",
-  "repository": "https://github.com/gentasumantri/pancake-swap-mock",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gentasumantri/pancake-swap-mock.git"
+  },
   "author": "Genta Sumantri <gentaaaa@outlook.co.id>",
   "license": "MIT",
   "scripts": {
