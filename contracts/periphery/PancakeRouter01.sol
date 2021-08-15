@@ -15,6 +15,7 @@ contract PancakeRouter01 is IPancakeRouter01 {
   address public immutable override WETH;
 
   modifier ensure(uint256 deadline) {
+    // solhint-disable-next-line not-rely-on-time
     require(deadline >= block.timestamp, "PancakeRouter: EXPIRED");
     _;
   }
@@ -125,7 +126,8 @@ contract PancakeRouter01 is IPancakeRouter01 {
 
     liquidity = IPancakePair(pair).mint(to);
 
-    if (msg.value > amountETH) TransferHelper.safeTransferETH(msg.sender, msg.value - amountETH); // refund dust eth, if any
+    // refund dust eth, if any
+    if (msg.value > amountETH) TransferHelper.safeTransferETH(msg.sender, msg.value - amountETH);
   }
 
   // **** REMOVE LIQUIDITY ****
@@ -347,7 +349,8 @@ contract PancakeRouter01 is IPancakeRouter01 {
 
     _swap(amounts, path, to);
 
-    if (msg.value > amounts[0]) TransferHelper.safeTransferETH(msg.sender, msg.value - amounts[0]); // refund dust eth, if any
+    // refund dust eth, if any
+    if (msg.value > amounts[0]) TransferHelper.safeTransferETH(msg.sender, msg.value - amounts[0]);
   }
 
   function quote(

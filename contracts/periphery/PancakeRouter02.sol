@@ -18,6 +18,7 @@ contract PancakeRouter02 is IPancakeRouter02 {
   address public immutable override WETH;
 
   modifier ensure(uint256 deadline) {
+    // solhint-disable-next-line not-rely-on-time
     require(deadline >= block.timestamp, "PancakeRouter: EXPIRED");
     _;
   }

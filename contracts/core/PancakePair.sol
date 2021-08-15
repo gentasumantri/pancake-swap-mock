@@ -64,6 +64,7 @@ contract PancakePair is IPancakePair, PancakeERC20 {
     address to,
     uint256 value
   ) private {
+    // solhint-disable-next-line avoid-low-level-calls
     (bool success, bytes memory data) = token.call(abi.encodeWithSelector(SELECTOR, to, value));
 
     require(success && (data.length == 0 || abi.decode(data, (bool))), "Pancake: TRANSFER_FAILED");
@@ -102,6 +103,7 @@ contract PancakePair is IPancakePair, PancakeERC20 {
   ) private {
     require(balance0 <= uint112(-1) && balance1 <= uint112(-1), "Pancake: OVERFLOW");
 
+    // solhint-disable-next-line not-rely-on-time
     uint32 blockTimestamp = uint32(block.timestamp % 2**32);
     uint32 timeElapsed = blockTimestamp - blockTimestampLast; // overflow is desired
 

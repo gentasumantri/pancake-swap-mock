@@ -32,6 +32,7 @@ contract PancakeERC20 is IPancakeERC20 {
   constructor() public {
     uint256 chainId;
 
+    // solhint-disable-next-line no-inline-assembly
     assembly {
       chainId := chainid()
     }
@@ -117,6 +118,7 @@ contract PancakeERC20 is IPancakeERC20 {
     bytes32 r,
     bytes32 s
   ) external override {
+    // solhint-disable-next-line not-rely-on-time
     require(deadline >= block.timestamp, "Pancake: EXPIRED");
 
     bytes32 digest = keccak256(
