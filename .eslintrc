@@ -17,10 +17,8 @@
   },
   "root": true,
   "rules": {
-    // Strict mode
     "strict": ["error", "global"],
 
-    // Code style
     "array-bracket-spacing": ["off"],
     "camelcase": ["warn", { "properties": "always" }],
     "comma-dangle": ["error", "always-multiline"],
