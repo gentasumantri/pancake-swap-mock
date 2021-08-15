@@ -1,6 +1,6 @@
 {
   "name": "@gsx/pancakeswap-mock",
-  "version": "1.0.0",
+  "version": "0.6.12",
   "repository": {
     "type": "git",
     "url": "https://github.com/gentasumantri/pancakeswap-mock.git"
@@ -10,8 +10,8 @@
   "scripts": {
     "compile": "truffle compile",
     "deploy": "truffle migrate",
-    "lint": "yarn lint:js && yarn lint:sol",
-    "lint:fix": "yarn lint:js:fix && yarn lint:sol:fix",
+    "lint": "npm run lint:js && npm run lint:sol",
+    "lint:fix": "npm run lint:js:fix && npm run lint:sol:fix",
     "lint:sol": "solhint contracts/**/*.sol",
     "lint:sol:fix": "solhint contracts/**/*.sol --fix",
     "lint:js": "eslint . --ignore-path .gitignore",
